@@ -6,8 +6,9 @@ const ShopItem = (props) => {
             <div className="thumbnail">
                 <img src={props.avatar} alt=""></img>
                 <div className="caption">
+                    <h4>{props.name}</h4>
                     <h4>$24.99</h4>
-                    <h4><a href="#">{props.name}</a></h4>
+                    <button className="pull-right" onClick={props.onClick}><i className="fa fa-cart-plus"></i></button>
                 </div>
             </div>
         </div>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import ShopList from './shop_list';
+import NavBar from './navbar';
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        <ShopList />
+        <NavBar />
+        {this.props.children}
       </div>
     );
   }

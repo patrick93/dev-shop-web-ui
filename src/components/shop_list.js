@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchDevs } from '../actions/index';
+import { fetchDevs, addCart } from '../actions/index';
 import ShopItem from './shop_item';
 
 class ShopList extends Component {
@@ -11,12 +11,14 @@ class ShopList extends Component {
 
     render() {
         return (
-            <div className="row shop-list">
-                {this.props.devs.map((dev) => {
-                    return (
-                        <ShopItem avatar={dev.avatar_url} name={dev.login} key={dev.id} />
-                    )
-                })}
+            <div className="container">
+                <div className="row shop-list">
+                    {this.props.devs.map((dev) => {
+                        return (
+                            <ShopItem avatar={dev.avatar_url} name={dev.login} key={dev.id} onClick={() => { this.props.addCart(dev) }} />
+                        )
+                    })}
+                </div>
             </div>
         );
     }
@@ -26,4 +28,4 @@ function mapStateToProps(state) {
     return { devs: state.shop.devs }
 }
 
-export default connect(mapStateToProps, { fetchDevs })(ShopList);
+export default connect(mapStateToProps, { fetchDevs, addCart })(ShopList);
