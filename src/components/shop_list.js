@@ -9,13 +9,22 @@ class ShopList extends Component {
         this.props.fetchDevs();
     }
 
+    getPrice(dev) {
+        return dev.login.length * 50;
+    }
+
     render() {
         return (
             <div className="container">
                 <div className="row shop-list">
                     {this.props.devs.map((dev) => {
+                        dev.price = this.getPrice(dev);
                         return (
-                            <ShopItem avatar={dev.avatar_url} name={dev.login} key={dev.id} onClick={() => { this.props.addCart(dev) }} />
+                            <ShopItem avatar={dev.avatar_url} 
+                                name={dev.login}
+                                key={dev.id}
+                                price={dev.price} 
+                                onClick={this.props.addCart.bind(this, dev) }  />
                         )
                     })}
                 </div>

@@ -1,14 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { fetchCart, removeItemCart, placeOrder } from '../actions/index';
 
 class Cart extends Component {
     static contextTypes = {
         router: PropTypes.object
     };
 
+    componentWillMount() {
+        this.props.fetchCart();
+    }
 
     placeOrder() {
-        this.context.router.push('/order');
+        this.props.placeOrder().then(() => {
+            this.context.router.push('/order');
+        });
+    }
+
+    removeItem(id) {
+        this.props.removeItemCart(id).then(() => {
+            this.props.fetchCart();
+        });
     }
 
     render() {
@@ -34,13 +46,13 @@ class Cart extends Component {
                                         </div>
                                     </td>
                                     <td>
-                                        $24.99
+                                        ${item.price},00
                                     </td>
                                     <td>
                                         1
                                     </td>
                                     <td>
-                                        <button>Remove</button>
+                                        <button onClick={this.removeItem.bind(this, item.id)}>Remove</button>
                                     </td>
                                 </tr>
                             );
@@ -57,4 +69,4 @@ function mapStateToProps(state) {
     return { cart: state.cart.items }
 }
 
-export default connect(mapStateToProps, null)(Cart);
+export default connect(mapStateToProps, { fetchCart, removeItemCart, placeOrder })(Cart);

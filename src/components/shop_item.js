@@ -10,7 +10,7 @@ const ShopItem = (props) => {
                         <h4>{props.name}</h4>
                     </div>
                     <div>
-                        <span>$24.99</span>
+                        <span>${props.price},00</span>
                         <button className="pull-right btn btn-success" onClick={props.onClick}><i className="fa fa-cart-plus"></i></button>
                     </div>
                 </div>
