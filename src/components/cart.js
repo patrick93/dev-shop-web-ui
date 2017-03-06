@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, removeItemCart, placeOrder } from '../actions/index';
+import { fetchCart, removeItemCart, placeOrder, updateCartItem } from '../actions/index';
+import CartItem from './cart_item';
 
 class Cart extends Component {
     static contextTypes = {
@@ -31,30 +32,17 @@ class Cart extends Component {
                         <tr>
                             <th>Dev</th>
                             <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Hours</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.props.cart.map((item) => {
                             return (
-                                <tr key={item.id}>
-                                    <td>
-                                        <div>
-                                            <img src={item.avatar_url} height="100"></img>
-                                            <h4>{item.login}</h4>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        ${item.price},00
-                                    </td>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <button onClick={this.removeItem.bind(this, item.id)}>Remove</button>
-                                    </td>
-                                </tr>
+                                <CartItem key={item.id}
+                                    item={item}
+                                    removeItem={this.removeItem.bind(this, item.id)}
+                                    updateAction={this.props.updateCartItem} />
                             );
                         })}
                     </tbody>
@@ -69,4 +57,4 @@ function mapStateToProps(state) {
     return { cart: state.cart.items }
 }
 
-export default connect(mapStateToProps, { fetchCart, removeItemCart, placeOrder })(Cart);
+export default connect(mapStateToProps, { fetchCart, removeItemCart, placeOrder, updateCartItem })(Cart);
