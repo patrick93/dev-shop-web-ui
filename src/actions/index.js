@@ -9,7 +9,7 @@ export const PLACE_ORDER = "PLACE_ORDER";
 export const UPDATE_CART_ITEM = "UPDATE_CART_ITEM";
 
 export function fetchDevs() {
-    const request = axios.get(`https://api.github.com/users?per_page=12`, { auth: {username: 'patrick93', password: 'F76r161an196a'}});
+    const request = axios.get(`https://api.github.com/users?per_page=12`, { auth: config.GITHUB_AUTH});
 
     return {
         type: FETCH_DEVS,
