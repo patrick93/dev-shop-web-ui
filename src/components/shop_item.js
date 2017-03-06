@@ -6,11 +6,11 @@ const ShopItem = (props) => {
             <div className="thumbnail">
                 <img src={props.avatar} alt=""></img>
                 <div className="caption">
-                    <div>
+                    <div className="shop-item-info">
                         <h4>{props.name}</h4>
+                        <h4>${props.price}/hr</h4>
                     </div>
-                    <div>
-                        <span>${props.price},00</span>
+                    <div className="add-cart-button">
                         <button className="pull-right btn btn-success" onClick={props.onClick}><i className="fa fa-cart-plus"></i></button>
                     </div>
                 </div>

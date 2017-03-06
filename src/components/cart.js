@@ -24,30 +24,58 @@ class Cart extends Component {
         });
     }
 
+    calculateTotal() {
+        return this.props.cart.reduce((prev, item) => {
+            return prev + item.price*item.hours;
+        }, 0)
+    }
+
+    hourChange(item, event){
+        const hours = parseInt(event.target.value)
+        this.props.updateCartItem({...item, hours }).then(() => {
+            this.props.fetchCart();
+        });
+    }
+
     render() {
+        if (this.props.cart.length === 0) {
+            return (
+                <div className="container">
+                    <h1>Shopping Cart is empty</h1>
+                </div>
+            )
+        }
+
         return (
-            <div className="container table-responsive">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Dev</th>
-                            <th>Price</th>
-                            <th>Hours</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.cart.map((item) => {
-                            return (
-                                <CartItem key={item.id}
-                                    item={item}
-                                    removeItem={this.removeItem.bind(this, item.id)}
-                                    updateAction={this.props.updateCartItem} />
-                            );
-                        })}
-                    </tbody>
-                </table>
-                <button onClick={this.placeOrder.bind(this)}>Comprar</button>
+            <div className="container">
+                <div className="table-responsive">
+                    <div>
+                        <h2 className="pull-left">Shopping Cart</h2>
+                        <button className="btn btn-success buy-button pull-right" onClick={this.placeOrder.bind(this)}>Buy</button>
+                    </div>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Dev</th>
+                                <th>Price/hr</th>
+                                <th>Hours</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.cart.map((item) => {
+                                return (
+                                    <CartItem key={item.id}
+                                        item={item}
+                                        removeItem={this.removeItem.bind(this, item.id)}
+                                        hourChange={this.hourChange.bind(this, item)} />
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                    <hr />
+                    <h3 className="pull-right">Total: ${this.calculateTotal().toFixed(2)}</h3>
+                </div>
             </div>
         );
     }

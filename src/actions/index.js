@@ -8,10 +8,8 @@ export const REMOVE_ITEM_CART = "REMOVE_ITEM_CART";
 export const PLACE_ORDER = "PLACE_ORDER";
 export const UPDATE_CART_ITEM = "UPDATE_CART_ITEM";
 
-const GITHUB_API_URL = "https://api.github.com";
-
 export function fetchDevs() {
-    const request = axios.get(`${GITHUB_API_URL}/users?per_page=12`, { auth: {username: 'patrick93', password: 'F76r161an196a'}});
+    const request = axios.get(`https://api.github.com/users?per_page=12`, { auth: {username: 'patrick93', password: 'F76r161an196a'}});
 
     return {
         type: FETCH_DEVS,

@@ -10,7 +10,7 @@ class ShopList extends Component {
     }
 
     getPrice(dev) {
-        return dev.login.length * 50;
+        return (dev.login.length * 50).toFixed(2);
     }
 
     render() {

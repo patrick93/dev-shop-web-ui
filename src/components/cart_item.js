@@ -1,23 +1,11 @@
 import React, { Component } from 'react';
-import { debounce } from 'throttle-debounce';
+import _ from 'lodash';
 
 class CartItem extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            hours: this.props.item.hours
-        }
-    }
-
-    onInputChange(event){
-        this.setState({hours: event.target.value});
-        if(event.target.value){
-            const hours = parseInt(event.target.value)
-            this.props.updateAction({...this.props.item, hours });
-        }
-    }
-
     render() {
+        const MAX_HOURS = 8;
+        const hoursValues = _.range(1, MAX_HOURS+1);
+
         return (
             <tr>
                 <td>
@@ -27,13 +15,19 @@ class CartItem extends Component {
                     </div>
                 </td>
                 <td>
-                    ${this.props.item.price},00
+                    ${this.props.item.price.toFixed(2)}
                 </td>
                 <td>
-                    <input type="number" value={this.state.hours} onChange={this.onInputChange.bind(this)} />
+                    <select className="form-control" value={this.props.item.hours} onChange={this.props.hourChange}>
+                        {hoursValues.map((value) => {
+                            return <option value={value}>{value}</option>
+                        })}
+                    </select>
                 </td>
-                <td>
-                    <button onClick={this.props.removeItem}>Remove</button>
+                <td className="delete-item-button">
+                    <button className="btn btn-danger" onClick={this.props.removeItem}>
+                        <i className="fa fa-trash"></i>
+                    </button>
                 </td>
             </tr>
         );
