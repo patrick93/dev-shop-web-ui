@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from 'config';
 
 export const FETCH_DEVS = "FETCH_DEVS";
 export const ADD_CART = "ADD_CART";
@@ -24,7 +25,7 @@ export function addCart(dev) {
         avatar_url: dev.avatar_url,
         price: dev.price
     };
-    const request = axios.post(`${CART_API_URL}/api/cart`, devModel);
+    const request = axios.post(`${config.CART_API_URL}/api/cart`, devModel);
 
     return {
         type: ADD_CART,
@@ -33,7 +34,7 @@ export function addCart(dev) {
 }
 
 export function fetchCart() {
-    const request = axios.get(`${CART_API_URL}/api/cart`);
+    const request = axios.get(`${config.CART_API_URL}/api/cart`);
 
     return {
         type: FETCH_CART,
@@ -42,7 +43,7 @@ export function fetchCart() {
 }
 
 export function removeItemCart(id) {
-    const request = axios.delete(`${CART_API_URL}/api/cart/${id}`);
+    const request = axios.delete(`${config.CART_API_URL}/api/cart/${id}`);
 
     return {
         type: REMOVE_ITEM_CART,
@@ -51,7 +52,7 @@ export function removeItemCart(id) {
 }
 
 export function placeOrder() {
-    const request = axios.post(`${CART_API_URL}/api/order`, {});
+    const request = axios.post(`${config.CART_API_URL}/api/order`, {});
 
     return {
         type: PLACE_ORDER,

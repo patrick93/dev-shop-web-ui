@@ -1,4 +1,4 @@
-var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
   entry: [
@@ -18,13 +18,11 @@ module.exports = {
       }
     }]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-        'CART_API_URL': process.env.NODE_ENV === 'production' ? JSON.stringify("https://dev-shop-api.herokuapp.com") : JSON.stringify("http://localhost:5000")
-    })
-  ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+      config: path.join(__dirname, 'config', process.env.NODE_ENV)
+    }
   },
   devServer: {
     historyApiFallback: true,
