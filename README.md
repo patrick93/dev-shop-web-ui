@@ -2,8 +2,6 @@
 
 This is the web user interface for the dev shop
 
-Demo: [https://dev-shop-web-ui.herokuapp.com/](https://dev-shop-web-ui.herokuapp.com/)
-
 # Requirements
 
 * NodeJS
